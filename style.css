@@ -1,0 +1,436 @@
+/* -------------------- Reset helpers -------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* -------------------- Global -------------------- */
+:root {
+  --accent: #ec2e91;
+  --accent-orange: #ff8a3d;
+  --bg: #fbf4ec;
+  --text-main: #111111;
+  --text-muted: #35535a;
+  --card-bg: #fffaf3;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif; /* 本文用 */
+  color: var(--text-main);
+  background-color: var(--bg);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Remove list bullets and padding */
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #cf06da;
+  text-decoration: none;
+}
+
+/* Headings: Bricolage Grotesque */
+h1,
+h2,
+h3,
+.section-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+}
+
+/* -------------------- Layout (CSS GRID) -------------------- */
+
+.page-wrapper {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+main {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "hero"
+    "profile"
+    "work";
+  row-gap: 80px;
+}
+
+#hero-section {
+  grid-area: hero;
+}
+
+#profile {
+  grid-area: profile;
+}
+
+#work {
+  grid-area: work;
+}
+
+/* -------------------- Header (Flexbox) -------------------- */
+
+header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-wrap img {
+  width: 80px;
+  height: 100px;
+}
+
+/* Nav menu with flexbox */
+.main-nav ul {
+  display: flex;
+  gap: 24px;
+}
+
+.main-nav a {
+  position: relative;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+}
+
+/* subtle animated underline (pseudo-element + transition) */
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-image: linear-gradient(90deg, var(--accent), var(--accent-orange));
+  transition: width 0.3s ease;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  color: #cf06da;
+}
+
+.main-nav a:hover::after,
+.main-nav a:focus-visible::after {
+  width: 100%;
+}
+
+/* -------------------- Hero Section -------------------- */
+
+#hero-section {
+  position: relative;
+  text-align: center;
+  min-height: 450px;
+  padding: 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border-radius: 80px 80px 0 0;
+  overflow: visible;
+}
+
+.hero-bg {
+  width: min(380px, 70vw);
+  aspect-ratio: 3 / 4;  
+  background-image: url("image/Autumn_puppy.jpeg"); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 999px 999px 0 0;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: -110px;
+  z-index: 1;
+  transition: transform 0.8s ease;
+}
+
+#hero-section:hover .hero-bg {
+  transform: scale(1.05);  
+}
+
+#hero-section h1 {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin: -100px 12px 12px 12px;
+  color: #cf06da;
+  text-transform: none;
+}
+
+.hero-tagline {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  color: #ffffff;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+/* -------------------- Section Titles -------------------- */
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 2.7rem);
+  text-align: left;
+  color: #cf06da;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  position: relative;
+}
+
+/* decorative line using pseudo-element */
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 70px;
+  height: 3px;
+  background-image: linear-gradient(90deg, var(--accent), var(--accent-orange));
+  border-radius: 999px;
+
+  transform-origin: left;
+  transform: scaleX(0); 
+  transition: transform 0.3s ease;
+}
+
+.section-title:hover::after {
+  transform: scaleX(1);
+}
+
+
+/* -------------------- Introduction -------------------- */
+
+.introduction {
+  max-width: 540px;
+  margin: 0;
+  font-size: 0.98rem;
+  color: var(--text-muted);
+}
+
+/* -------------------- My Work Section -------------------- */
+
+.my-work {
+  margin-top: 10px;
+}
+
+/* Grid of portfolio projects using CSS Grid */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+  margin-top: 40px;
+}
+
+/* Individual card uses Flexbox internally */
+.work-item {
+  background-color: var(--card-bg);
+  border-radius: 18px;
+  padding: 24px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Card hover animation (transform + transition) */
+.work-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.16);
+}
+
+.work-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.work-item h3 {
+  font-size: 1.1rem;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.work-meta {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent-orange);
+  margin: 0;
+}
+
+.work-description {
+  color: var(--text-muted);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.work-item figure {
+  margin: 8px 0 0;
+}
+
+.work-item img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+
+.work-item figcaption {
+  font-size: 0.8rem;
+  margin-top: 8px;
+  color: var(--text-muted);
+}
+
+/* -------------------- Footer -------------------- */
+
+footer {
+  text-align: center;
+  padding: 40px 20px 30px;
+  color: gray;
+}
+
+footer h3 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.social-list {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  margin-bottom: 18px;
+}
+
+.social-list a {
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.social-list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background-color: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.social-list a:hover {
+  transform: translateY(-2px);
+}
+
+.social-list a:hover::after {
+  width: 100%;
+}
+
+.footer-credit {
+  font-size: 0.8rem;
+  color: #999999;
+}
+
+/* -------------------- Responsive (@media) -------------------- */
+
+@media (min-width: 960px) {
+  main {
+    padding: 20px 40px 80px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    grid-template-areas:
+      "hero hero"
+      "profile work";
+    column-gap: 64px;
+    align-items: flex-start;
+  }
+
+  .introduction {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .main-nav ul {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  #hero-section {
+    border-radius: 0;
+    margin-inline: -20px; /* full-bleed hero on mobile */
+  }
+
+  .hero-cats {
+    font-size: 0.8rem;
+    gap: 16px;
+  }
+
+  .work-item img {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-tagline {
+    letter-spacing: 0.1em;
+  }
+
+  .section-title {
+    text-align: center;
+  }
+
+  .section-title::after {
+    left: 50%;
+    transform-origin: center;
+    transform: translateX(-50%) scaleX(0);  
+  }
+
+  .section-title:hover::after {
+    transform: translateX(-50%) scaleX(1);  
+  }
+
+  .introduction {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .my-work {
+    margin-top: 0;
+  }
+}
+
